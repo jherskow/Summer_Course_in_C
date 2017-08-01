@@ -51,3 +51,10 @@ double calculateD2(double x, double x)
     double term = power((x+ALPHA), 2) + power(y,2);
     return power(term, 1.5);
 }
+
+
+calculate(double x, double y,  double vX,  double vY,  double T, )
+{
+    double term = power((x+ALPHA), 2) + power(y,2);
+    return power(term, 1.5);
+}
