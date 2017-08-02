@@ -77,6 +77,10 @@ long double calculateAy(long double y, long double vX, long double d1, long doub
 //    return 0;
 //}
 
+/**
+ * @brief
+ * @return
+ */
 long double forwardZ(long double* z, long double* velZ, long double alphaZ, long double differenceTime)
 {
     *z = (*z) + (*velZ)*(differenceTime);
@@ -84,6 +88,10 @@ long double forwardZ(long double* z, long double* velZ, long double alphaZ, long
     return 0;
 }
 
+/**
+ * @brief
+ * @return
+ */
 void eulerSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
                                 long double differenceTime)
 {
@@ -96,7 +104,10 @@ void eulerSingleStep(long double* x, long double* y,  long double* velX,  long d
     forwardZ(x, velX, alphaX, differenceTime );
     forwardZ(y, velY, alphaY, differenceTime );
 }
-
+/**
+ * @brief
+ * @return
+ */
 void calculatePath(long double* x, long double* y,  long double* velX,  long double* velY,
                          long double time, long double n, long double m)
 {
@@ -105,16 +116,12 @@ void calculatePath(long double* x, long double* y,  long double* velX,  long dou
     for (int i = 0; i < time; ++i)
     {
         eulerSingleStep(x, y, velX, velY, differenceTime);
+        if(fmod(n,m))
+        {
+            //todo
+            printf("<%d>,<%d>," x, y);
+        }
     }
 }
 
-
-
-
-
-int main()
-{
-    // todo
-    return 0;
-}
 
