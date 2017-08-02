@@ -136,7 +136,7 @@ long double getLongDouble()
 }
 int getInt()
 {
-    // todo get long double
+    // todo get int
 }
 
 int getInputFromUser()
@@ -160,6 +160,11 @@ int getInputFromUser()
     time = getLongDouble();
 }
 
+int getInputFromFile()
+{
+    //todo
+}
+
 void checkNM()
 {
     if(n%m != 0)
@@ -178,7 +183,7 @@ void checkTime()
 
 int checkInputs()
 {
-    checkNM(n, m);
-    checkTime(time);
+    checkNM();
+    checkTime();
 }
 
