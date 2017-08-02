@@ -70,19 +70,12 @@ long double calculateAy(long double y, long double vX, long double d1, long doub
     return y + 2*vX - BETA*(y/d1) - ALPHA*(y/d2);
 }
 
-long double calculateInitialVelocity(long double x, long double y,  long double vX,  long double vY,  long double time,
-                      long double steps, long double stepsToPrint)
-{
-    // todo
-    return 0;
-}
-
-long double calculateSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
-                                long double differenceTime)
-{
-    forwardZ(x, velX, alphaX, &differenceTime );
-    forwardZ(y, velY, alphaY, &differenceTime );
-}
+//long double calculateInitialVelocity(long double x, long double y,  long double vX,  long double vY,  long double time,
+//                      long double steps, long double stepsToPrint)
+//{
+//    // todo
+//    return 0;
+//}
 
 long double forwardZ(long double* z, long double* velZ, long double alphaZ, long double differenceTime)
 {
@@ -90,6 +83,34 @@ long double forwardZ(long double* z, long double* velZ, long double alphaZ, long
     *velZ = (*velZ) + (alphaZ)*(differenceTime);
     return 0;
 }
+
+void eulerSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
+                                long double differenceTime)
+{
+    long double d1 = calculateD1(*x, *y);
+    long double d2 = calculateD2(*x, *y);
+
+    long double alphaX = calculateAx(*x, *velY, d1, d2);
+    long double alphaY = calculateAy(*x, *velY, d1, d2);
+
+    forwardZ(x, velX, alphaX, differenceTime );
+    forwardZ(y, velY, alphaY, differenceTime );
+}
+
+void calculatePath(long double* x, long double* y,  long double* velX,  long double* velY,
+                         long double time, long double n, long double m)
+{
+
+    long double differenceTime = time/n;
+    for (int i = 0; i < time; ++i)
+    {
+        eulerSingleStep(x, y, velX, velY, differenceTime);
+    }
+}
+
+
+
+
 
 int main()
 {
