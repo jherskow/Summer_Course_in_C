@@ -31,6 +31,12 @@ const long double ALPHA =  0.012299;
  */
 const long double BETA =  1 - 0.012299;
 
+
+// -------------------------- global definitions ------------------------
+
+long double *x, *y , *velX, *velY, time;
+int n, m;
+
 // ------------------------------ functions -----------------------------
 /**
  * @brief
@@ -119,9 +125,60 @@ void calculatePath(long double* x, long double* y,  long double* velX,  long dou
         if(i%m)
         {
             //todo
-            printf("<3Le.%>,<3Le.%>,", *x, *y);
+            printf("<%Lf>,<%Lf>,", *x, *y);
         }
     }
 }
 
+long double getLongDouble()
+{
+    // todo get long double
+}
+int getInt()
+{
+    // todo get long double
+}
+
+int getInputFromUser()
+{
+    printf("Enter initial pos x:\n");
+    *x = getLongDouble();
+    printf("Enter initial pos y:\n");
+    *y = getLongDouble();
+
+    printf("Enter initial vel x:\n");
+    *velX = getLongDouble();
+    printf("Enter initial vel y:\n");
+    *velY = getLongDouble();
+
+    printf("Enter num of steps to save:\n");
+    n = getInt();
+    printf("Enter num of steps:\n");
+    m = getInt();
+
+    printf("Enter total time T:\n");
+    time = getLongDouble();
+}
+
+void checkNM()
+{
+    if(n%m != 0)
+    {
+        //todo bad m n error
+    }
+}
+
+void checkTime()
+{
+    if(time <= 0)
+    {
+        //todo bad time error
+    }
+}
+
+int checkInputs()
+{
+    checkNM(n, m);
+    checkTime(time);
+}
 
