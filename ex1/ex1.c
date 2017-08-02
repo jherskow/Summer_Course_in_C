@@ -46,7 +46,7 @@ long double calculateD1(long double x, long double x)
  * @brief
  * @return
  */
-long double calculateD2(long double x, long double* y)
+long double calculateD2(long double x, long double x)
 {
     long double term = powl((x+ALPHA), 2) + powl(y,2);
     return powl(term, 1.5);
@@ -56,7 +56,7 @@ long double calculateD2(long double x, long double* y)
  * @brief
  * @return
  */
-long double calculateAlphaX(long double x, long double vY, long double d1, long double d2)
+long double calculateAx(long double x, long double vY, long double d1, long double d2)
 {
     return x + 2*vY - BETA*((x+ALPHA)/d1) - ALPHA*((x-BETA)/d2);
 }
@@ -65,31 +65,22 @@ long double calculateAlphaX(long double x, long double vY, long double d1, long 
  * @brief
  * @return
  */
-long double calculateAlphaY(long double y, long double vX, long double d1, long double d2)
+long double calculateAy(long double y, long double vX, long double d1, long double d2)
 {
     return y + 2*vX - BETA*(y/d1) - ALPHA*(y/d2);
 }
 
-long double calculateInitialVelocity(long double x, long double y,  long double vX,  long double vY,  long double time,
-                      long double steps, long double stepsToPrint)
-{
-    // todo
-    return 0;
-}
+//long double calculateInitialVelocity(long double x, long double y,  long double vX,  long double vY,  long double time,
+//                      long double steps, long double stepsToPrint)
+//{
+//    // todo
+//    return 0;
+//}
 
-long double calculateSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
-                                long double differenceTime)
-{
-    long double d1 = calculateD1(x, y);
-    long double d2 = calculateD2(x, y);
-
-    long double alphaX = calculateAlphaX(x, velX, d1, d2);
-    long double alphaY = calculateAlphaY(x, velY, d1, d2);
-
-    forwardZ(x, velX, alphaX, differenceTime );
-    forwardZ(y, velY, alphaY, differenceTime );
-}
-
+/**
+ * @brief
+ * @return
+ */
 long double forwardZ(long double* z, long double* velZ, long double alphaZ, long double differenceTime)
 {
     *z = (*z) + (*velZ)*(differenceTime);
@@ -97,9 +88,40 @@ long double forwardZ(long double* z, long double* velZ, long double alphaZ, long
     return 0;
 }
 
-int main()
+/**
+ * @brief
+ * @return
+ */
+void eulerSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
+                                long double differenceTime)
 {
-    // todo
-    return 0;
+    long double d1 = calculateD1(*x, *y);
+    long double d2 = calculateD2(*x, *y);
+
+    long double alphaX = calculateAx(*x, *velY, d1, d2);
+    long double alphaY = calculateAy(*x, *velY, d1, d2);
+
+    forwardZ(x, velX, alphaX, differenceTime );
+    forwardZ(y, velY, alphaY, differenceTime );
 }
+/**
+ * @brief
+ * @return
+ */
+void calculatePath(long double* x, long double* y,  long double* velX,  long double* velY,
+                         long double time, long double n, long double m)
+{
+
+    long double differenceTime = time/n;
+    for (int i = 0; i < time; ++i)
+    {
+        eulerSingleStep(x, y, velX, velY, differenceTime);
+        if(fmod(n,m))
+        {
+            //todo
+            printf("<%d>,<%d>," x, y);
+        }
+    }
+}
+
 
