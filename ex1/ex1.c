@@ -36,7 +36,7 @@ const long double BETA =  1 - 0.012299;
  * @brief
  * @return
  */
-long double calculateD1(long double x, long double x)
+long double calculateD1(long double x, long double y)
 {
     long double term = powl((x-BETA), 2) + powl(y,2);
     return powl(term, 1.5);
@@ -46,7 +46,7 @@ long double calculateD1(long double x, long double x)
  * @brief
  * @return
  */
-long double calculateD2(long double x, long double x)
+long double calculateD2(long double x, long double y)
 {
     long double term = powl((x+ALPHA), 2) + powl(y,2);
     return powl(term, 1.5);
@@ -67,7 +67,7 @@ long double calculateAx(long double x, long double vY, long double d1, long doub
  */
 long double calculateAy(long double y, long double vX, long double d1, long double d2)
 {
-    return y + 2*vX - BETA*(y/d1) - ALPHA*(y/d2);
+    return y - 2*vX - BETA*(y/d1) - ALPHA*(y/d2);
 }
 
 //long double calculateInitialVelocity(long double x, long double y,  long double vX,  long double vY,  long double time,
@@ -109,17 +109,17 @@ void eulerSingleStep(long double* x, long double* y,  long double* velX,  long d
  * @return
  */
 void calculatePath(long double* x, long double* y,  long double* velX,  long double* velY,
-                         long double time, long double n, long double m)
+                         long double time, int n, int m)
 {
 
     long double differenceTime = time/n;
-    for (int i = 0; i < time; ++i)
+    for (int i = 0; i < n; i++)
     {
         eulerSingleStep(x, y, velX, velY, differenceTime);
-        if(fmod(n,m))
+        if(i%m)
         {
             //todo
-            printf("<%d>,<%d>," x, y);
+            printf("<3Le.%>,<3Le.%>,", *x, *y);
         }
     }
 }
