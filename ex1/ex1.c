@@ -16,6 +16,7 @@
 // ------------------------------ includes ------------------------------
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 // -------------------------- const definitions -------------------------
 
@@ -30,6 +31,10 @@ const long double ALPHA =  0.012299;
  * @brief
  */
 const long double BETA =  1 - 0.012299;
+
+const int IO_ERROR =  2;
+const int NM_ERROR =  3;
+const int TIME_ERROR =  4;
 
 
 // -------------------------- global definitions ------------------------
@@ -96,7 +101,6 @@ long double forwardZ(long double* z, long double* velZ, long double alphaZ, long
 
 /**
  * @brief
- * @return
  */
 void eulerSingleStep(long double* x, long double* y,  long double* velX,  long double* velY,
                                 long double differenceTime)
@@ -112,17 +116,16 @@ void eulerSingleStep(long double* x, long double* y,  long double* velX,  long d
 }
 /**
  * @brief
- * @return
  */
 void calculatePath(long double* x, long double* y,  long double* velX,  long double* velY,
                          long double time, int n, int m)
 {
 
     long double differenceTime = time/n;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
         eulerSingleStep(x, y, velX, velY, differenceTime);
-        if(i%m)
+        if(i%m) //todo fix - needs to print precisely m times
         {
             //todo
             printf("<%Lf>,<%Lf>,", *x, *y);
@@ -133,10 +136,24 @@ void calculatePath(long double* x, long double* y,  long double* velX,  long dou
 long double getLongDouble()
 {
     // todo get long double
+    int length = sizeof(long double)/sizeof(char);
+
+    long double x = sscanf(,)
+
+    // if error
+    sprintf(stderr,"Input Error:\nInvalid input for _long double_");
+    exit(IO_ERROR);
+
 }
 int getInt()
 {
     // todo get int
+
+    long double x = str;
+
+    // if error
+    sprintf(stderr,"Input Error:\nInvalid input for _int_");
+    exit(IO_ERROR);
 }
 
 int getInputFromUser()
@@ -169,7 +186,8 @@ void checkNM()
 {
     if(n%m != 0)
     {
-        //todo bad m n error
+        sprintf(stderr,"Input Error:\nn must divide m!");
+        exit(NM_ERROR);
     }
 }
 
@@ -177,7 +195,8 @@ void checkTime()
 {
     if(time <= 0)
     {
-        //todo bad time error
+        sprintf(stderr,"Input Error:\nTime must be positive!");
+        exit(TIME_ERROR);
     }
 }
 
