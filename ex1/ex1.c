@@ -17,15 +17,14 @@
 #define LONG_DOUBLE_BUFFER 255
 #define INT_BUFFER 16
 
-#define IO_ERROR 2;
-#define NM_ERROR 3;
-#define TIME_ERROR 4;
-#define ARG_ERROR 5;
-
 const long double ALPHA =  0.012299;
 const long double BETA =  1 - 0.012299;
 
-
+const int IO_ERROR = 2;
+const int NM_ERROR = 3;
+const int TIME_ERROR = 4;
+const int ARG_ERROR = 5;
+const int FLOAT_ERROR = 6;
 
 
 // -------------------------- global definitions ------------------------
@@ -129,7 +128,7 @@ long double getLongDouble()
     num = strtold(buffer, &checkBadIo);
 
     // error check
-    if (checkBadIo != NULL || num == INFINITY || num == NAN)
+    if (checkBadIo != NULL)
     {
         sprintf(stderr,"Input Error:\nInvalid input for _long double_\n");
         exit(IO_ERROR);
@@ -217,10 +216,34 @@ void checkTime()
     }
 }
 
-void checkInputs()
+
+
+void checkLongDouble(long double *const z)
+{
+    if(*z == INFINITY || *z == NAN)
+    {
+        sprintf(stderr,"Invalid number for coordinate / velocity\n");
+        exit(FLOAT_ERROR);
+    }
+}
+
+void checkLongDoubles(long double *const x, long double *const y,
+                      long double *const velX,long double *const velY)
+{
+    checkLongDouble(x);
+    checkLongDouble(y);
+    checkLongDouble(velX);
+    checkLongDouble(velY);
+}
+
+
+
+void checkInputs(long double *const x, long double *const y,
+                 long double *const velX,long double *const velY)
 {
     checkNM();
     checkTime();
+    checkLongDoubles(x,y,velX,velY);
 }
 
 /**
@@ -251,7 +274,7 @@ void main(int argc, char *argv[] )
     //todo set output file
 
     // check number legality
-    checkInputs();
+    checkInputs(x,y,velX,velY);
 
     //run program
     calculatePath(x,y,velX,velY);
