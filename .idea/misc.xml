@@ -5,5 +5,8 @@
     <sourceRoots>
       <file path="$PROJECT_DIR$/ex1" />
     </sourceRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/course docs" />
+    </excludeRoots>
   </component>
 </project>
