@@ -1,18 +1,14 @@
-# Summer_Course_in_C
+
+# C workshop Coursework 
+
+## Problem sets
 
 
-This is a README
+Problem sets completed from HUJI's offering of **Summer workshop in C**, summer 2017.
 
 
-valgrind---------------------------------------------------------------------------------------------------------------------------------
+## Ex's
 
-valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes –undef-value-errors=yes ProgramName
-
-// if no work:
-
-chmod 777 ProgramName
-
-
----------------------------------------------------------------------------------------------------------------------------------
-
-
+- **Ex 1**  - Forward Euler calculator for finding an Arenstorf Orbit.
+- **Ex 2**  - ML Linear separation engine for categorizing sets of vectors.
+- **Ex 3** - A sudoku solver. (Unfinished).
